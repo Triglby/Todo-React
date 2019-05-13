@@ -14,19 +14,19 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:8888/api`)
+    axios.get(`http://35.189.111.58:8888/api`)
     .then(res => this.setState({ todos: res.data }));
   }
 
   // Delete Todo
   delTodo = (id) => {
-    axios.delete(`http://localhost:8888/api/${id}`)
+    axios.delete(`http://35.189.111.58:8888/api/${id}`)
       .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] }));
   }
 
   // Toggle 
   toggleComplete = (id) => {
-    axios.put(`http://localhost:8888/api/${id}`)
+    axios.put(`http://35.189.111.58:8888/api/${id}`)
     .then(this.setState({ todos: this.state.todos.map(todo => {
       if(todo.id === id) {
         todo.taskDone = !todo.taskDone
@@ -38,7 +38,7 @@ class App extends Component {
 
   // Add 
   addTodo = (taskDesc) => {
-    axios.post(`http://localhost:8888/api`, { taskDesc })
+    axios.post(`http://35.189.111.58:8888/api/api`, { taskDesc })
     .then(res => this.setState({ todos: [...this.state.todos, res.data]}));
   }
 
