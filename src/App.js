@@ -39,7 +39,9 @@ class App extends Component {
   // Add 
   addTodo = (taskDesc) => {
     axios.post(`http://35.189.111.58:8888/api`, { taskDesc })
-    .then(res => this.setState({ todos: [...this.state.todos, res.data]}));
+    .then(res => this.setState({ todos: [...this.state.todos, res.data]}))
+    .then(axios.get(`http://35.189.111.58:8888/api`)
+    .then(res => this.setState({ todos: res.data })));
   }
 
   render(){
