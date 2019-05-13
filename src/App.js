@@ -14,29 +14,31 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8888/api/')
+    axios.get(`http://localhost:8888/api`)
     .then(res => this.setState({ todos: res.data }));
   }
 
-  // Delete
+  // Delete Todo
   delTodo = (id) => {
-    this.setState({ todos: [...this.state.todos.filter
-      (todo => todo.id !== id)] });
+    axios.delete(`http://localhost:8888/api/${id}`)
+      .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] }));
   }
 
   // Toggle 
   toggleComplete = (id) => {
-    this.setState({ todos: this.state.todos.map(todo => {
+    axios.put(`http://localhost:8888/api/${id}`)
+    .then(this.setState({ todos: this.state.todos.map(todo => {
       if(todo.id === id) {
         todo.taskDone = !todo.taskDone
-      }
+      } 
       return todo;
-    }) });
+    }) }));
+
   }
 
   // Add 
   addTodo = (taskDesc) => {
-    axios.post('http://localhost:8888/api/', {taskDesc, taskDone: false })
+    axios.post(`http://localhost:8888/api`, { taskDesc })
     .then(res => this.setState({ todos: [...this.state.todos, res.data]}));
   }
 
